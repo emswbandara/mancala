@@ -1,0 +1,77 @@
+.board {
+	margin: 30px auto;
+	display: flex;
+	flex-flow: row;
+	border: 1px solid #bbb;
+	box-shadow: 0 0 5px #bbb;
+	width: 930px;
+	height: 235px;
+	max-width: 100%;
+	resize: both;
+	overflow-x: auto;
+	border-radius: 20px;
+}
+
+.rows {
+	flex: 7;
+	display: flex;
+	flex-direction: column;
+}
+
+.mancala {
+	flex: 1;
+	border-radius: 40px;
+}
+
+.row {
+	flex: 1;
+	display: flex;
+}
+
+.mancala, .pit {
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0,0,0,.15);
+	box-shadow: inset 0 0 2px rgba(0,0,0,.5);
+	cursor: default;
+}
+
+.pit {
+	flex: 1;
+	border-radius: 40%;
+}
+
+[player-turn="two"] .row.player-two .pit,
+[player-turn="one"] .row.player-one .pit {
+	cursor: pointer;
+}
+
+[player-turn="two"] .status,
+.mancala.player-two, .player-two .pit {
+	color: green;
+}
+
+.player1 {
+    color: #0074D9;
+}
+
+.player2 {
+    color: green;
+}
+
+[player-turn="one"] .status,
+.mancala.player-one, .player-one .pit {
+	color: #0074D9;
+}
+
+[player-turn="two"] .row.player-two .pit:hover,
+[player-turn="one"] .row.player-one .pit:hover {
+    background: rgba(0,0,0,.30);
+}
+
+.game-over {
+    cursor: not-allowed;
+    pointer-events:none;
+  }

@@ -1,0 +1,73 @@
+<p class="status text-center list-inline">Game ID: {{ game!.gameId }}</p>
+
+<div [attr.player-turn]="game.currentPlayer == game.player1.name? 'one': 'two'">
+
+    <p class="text-center list-inline">Player 1: <span class="player1">{{ game!.player1.name }}</span></p>
+    <p class="text-center list-inline">Player 2: <span class="player2">{{ game!.player2.name }}</span></p>
+
+    <p [style.display]="game.status != 'RUNNING' ? 'none' : 'block'" class="text-center list-inline">
+        It is <span class="current-player status">{{ game!.currentPlayer }}</span>'s turn</p>
+
+    <div [style.display]="game.status == 'COMPLETED' ? 'block' : 'none'">
+        <p class="text-center list-inline">Game Over</p>
+        <ul class="text-center list-inline py-3">
+
+            <li class="list-inline-item">
+                <button class="btn btn-info" (click)="getWinner(game.gameId)">Check Winner</button>
+            </li>
+        </ul>
+    </div>
+
+    <p class="text-center list-inline" [style.display]="(game.status == 'PLAYER1_WIN') ? 'block' : 'none'">Player 1
+        Wins!</p>
+    <p class="text-center list-inline" [style.display]="(game.status == 'PLAYER2_WIN') ? 'block' : 'none'">Player 2
+        Wins!</p>
+
+    <div class="board" [ngClass]="{'game-over': game.status != 'RUNNING'}">
+
+        <div class="player-one mancala">
+            <p>{{ game!.player1.bigPit }}</p>
+        </div>
+
+        <div class="rows">
+            <div class="row player-one">
+                <ng-container *ngFor="let player1Pit of game!.player1.smallPits.slice().reverse()">
+                    <div class="pit" (click)="play(player1Pit.id)">
+                        <p>{{ player1Pit.stones }}</p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="row player-two">
+                <ng-container *ngFor="let player2Pit of game!.player2.smallPits">
+                    <div class="pit" (click)="play(player2Pit.id)">
+                        <p>{{ player2Pit.stones }}</p>
+                    </div>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="player-two mancala">
+            <p>{{ game!.player2.bigPit }}</p>
+        </div>
+    </div>
+
+    <ul class="text-center list-inline py-3" [style.display]="game.status == 'PAUSED' || game.status == 'RUNNING'? 'block': 'none'">
+        <li class="list-inline-item">
+            <button class="btn btn-info" (click)="restartGame(game.gameId)">Restart</button>
+
+        </li>
+        <li class="list-inline-item">
+            <button class="btn btn-info" (click)="changeState(game)">{{game.status == 'RUNNING' ? 'Pause': 'Resume'}}</button>
+        </li>
+        <li class="list-inline-item">
+            <button class="btn btn-info" (click)="withdrawGame(game.gameId)">Withdraw</button>
+        </li>
+    </ul>
+    <ul class="text-center list-inline py-3" [style.display]="game.status !== 'PAUSED' && game.status !== 'RUNNING'? 'block': 'none'">
+        <li class="list-inline-item">
+            <button class="btn btn-info" (click)="restartGame(game.gameId)">Restart</button>
+        </li>
+    </ul>
+</div>

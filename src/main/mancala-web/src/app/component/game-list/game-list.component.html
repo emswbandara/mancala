@@ -1,0 +1,28 @@
+<div class="card my-5">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Game ID</th>
+                    <th scope="col">Player 1</th>
+                    <th scope="col">Player 2</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let game of games">
+                        <td>{{ game.gameId }}</td>
+                        <td>{{ game.player1.name }}</td>
+                        <td>{{ game.player2.name }}</td>
+                        <td>{{ game.status }}</td>
+                        <td>
+                            <li class="list-inline-item">
+                                <button class="btn btn-info" (click)="navigateToGames(game.gameId)">View</button>
+                            </li>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
